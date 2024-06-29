@@ -1,1 +1,11 @@
 
+version: '3'
+services:
+  pyspark:
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./work:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
