@@ -9,6 +9,6 @@ services:
     environment:
       - JUPYTER_ENABLE_LAB=yes
       - NB_UID=1000
-      - NB_GID=100
+      - NB_GID=1000
     user: root
     command: start-notebook.sh --NotebookApp.allow_root=true
