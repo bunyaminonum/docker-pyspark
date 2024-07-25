@@ -1,9 +1,9 @@
 isim,soyisim,yas,sehir
 Mehmet,Fırat,25,Ankara
 Mert,Mertoğlu,28,İstanbuş
-Bünyamin,önüm,null,İzmir
-Selçuk,null,null,Konya
-null,null,37,Kocaeli
-Ömer,çorapçı,null,null
+Bünyamin,önüm,,İzmir
+Selçuk,,,Konya
+null,,37,Kocaeli
+Ömer,çorapçı,,
 Burak,Korkmaz,32,null
 hasan Can,Bulut,22,Aksaray
