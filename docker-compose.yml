@@ -2,6 +2,7 @@ version: '3'
 services:
   pyspark:
     image: jupyter/pyspark-notebook:latest
+    network_mode: "host"
     ports:
       - "8888:8888"
     volumes:
