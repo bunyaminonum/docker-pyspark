@@ -1,3 +1,4 @@
+
 version: '3'
 services:
   pyspark:
@@ -11,5 +12,7 @@ services:
       - JUPYTER_ENABLE_LAB=yes
       - NB_UID=1000
       - NB_GID=1000
+      - SPARK_OPTS=--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.kafka:kafka-clients:3.5.1
+      - KAFKA_BOOTSTRAP_SERVERS=host.docker.internal:9092
     user: root
     command: start-notebook.sh --NotebookApp.allow_root=true
