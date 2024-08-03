@@ -1,17 +1,25 @@
 version: '3'
 services:
-  pyspark:
+  jupyter-pyspark-kafka:
     image: jupyter/pyspark-notebook:latest
-    network_mode: "host"
     ports:
       - "8888:8888"
     volumes:
       - ./work:/home/jovyan/work
+      - /opt/spark:/opt/spark  # Eğer host makinede Spark kuruluysa
+      - /home/opc/confluent-7.4.3:/opt/kafka  # Kafka dizinini bağlıyoruz
     environment:
       - JUPYTER_ENABLE_LAB=yes
-      - NB_UID=1000
-      - NB_GID=1000
+      - SPARK_HOME=/opt/spark
+      - PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9-src.zip
+      - PYSPARK_PYTHON=/opt/conda/bin/python
+      - PYSPARK_DRIVER_PYTHON=/opt/conda/bin/python
+      - KAFKA_HOME=/opt/kafka
+      - PATH=$PATH:$KAFKA_HOME/bin
       - KAFKA_BOOTSTRAP_SERVERS=host.docker.internal:9092
-    user: root
-    command: start-notebook.sh --NotebookApp.allow_root=true
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
     restart: always
+    network_mode: "host"  # Host ağını kullan (Kafka erişimi için gerekli olabilir)
+
+volumes:
+  work:
