@@ -14,9 +14,9 @@ services:
       - PYSPARK_PYTHON=/opt/conda/bin/python
       - PYSPARK_DRIVER_PYTHON=/opt/conda/bin/python
       - KAFKA_HOME=/opt/kafka
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/kafka/bin
+      - PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/kafka/bin
       - KAFKA_BOOTSTRAP_SERVERS=localhost:9092
-    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+    command: ["/bin/bash", "-c", "conda init bash && source ~/.bashrc && start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"]
     restart: always
     network_mode: "host"
 
