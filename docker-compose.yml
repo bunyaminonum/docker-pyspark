@@ -1,24 +1,26 @@
+version: '3'
 services:
-  jupyter-pyspark-kafka:
+  notebook:
     image: jupyter/pyspark-notebook:latest
-    ports:
-      - "8888:8888"
-    volumes:
-      - ./work:/home/jovyan/work
-      - /opt/spark:/opt/spark
-      - /home/opc/confluent-7.4.3:/opt/kafka
     environment:
-      - JUPYTER_ENABLE_LAB=yes
-      - SPARK_HOME=/opt/spark
       - PYTHONPATH=/opt/spark/python:/opt/spark/python/lib/py4j-0.10.9-src.zip
       - PYSPARK_PYTHON=/opt/conda/bin/python
       - PYSPARK_DRIVER_PYTHON=/opt/conda/bin/python
       - KAFKA_HOME=/opt/kafka
       - PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/kafka/bin
       - KAFKA_BOOTSTRAP_SERVERS=localhost:9092
-    command: ["/bin/bash", "-c", "conda init bash && source ~/.bashrc && start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"]
-    restart: always
+    env_file:
+      - .env
+    command: >
+      /bin/bash -c "
+        conda init bash &&
+        source ~/.bashrc &&
+        start-notebook.sh --NotebookApp.token='' --NotebookApp.password=\${NOTEBOOK_PASSWORD}"
     network_mode: "host"
+    ports:
+      - "8888:8888"
+    volumes:
+      - work:/home/jovyan/work
 
 volumes:
   work:
